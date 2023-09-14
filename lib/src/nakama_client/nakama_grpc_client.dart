@@ -1144,14 +1144,16 @@ class NakamaGrpcClient extends NakamaBaseClient {
     int? minSize,
     String? query,
   }) async {
-    final res = await _client.listMatches(api.ListMatchesRequest(
-      authoritative: api.BoolValue(value: authoritative),
-      label: api.StringValue(value: label),
-      limit: api.Int32Value(value: limit),
-      maxSize: api.Int32Value(value: maxSize),
-      minSize: api.Int32Value(value: minSize),
-      query: api.StringValue(value: query),
-    ));
+    final res = await _client.listMatches(
+        api.ListMatchesRequest(
+          authoritative: api.BoolValue(value: authoritative),
+          label: api.StringValue(value: label),
+          limit: api.Int32Value(value: limit),
+          maxSize: api.Int32Value(value: maxSize),
+          minSize: api.Int32Value(value: minSize),
+          query: api.StringValue(value: query),
+        ),
+        options: _getSessionCallOptions(session));
 
     return res.matches
         .map((e) => model.Match.fromDto(e))
